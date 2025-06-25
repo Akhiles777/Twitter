@@ -1,7 +1,6 @@
 import Image from "next/image";
 
-import {Tweet} from "@/app/(home)/Tweet";
-
+import {Tweet} from "@/app/(public)/(home)/Tweet";
 import {TWEETS} from "@/shared/data/tweets.data";
 
 
