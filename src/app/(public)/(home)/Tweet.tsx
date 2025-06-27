@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import {PAGES} from "@/config/pages.config";
 
+import MenuPost from "@/app/(public)/MenuPost/page";
+
 interface Props{
     tweet: ITweet
 }
@@ -24,6 +26,8 @@ export function Tweet({tweet}: Props){
             </div>
 
             <p className='text-white/90'>{tweet.text}</p>
+
+<MenuPost/>
         </div>
     )
 }
