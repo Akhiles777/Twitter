@@ -11,7 +11,7 @@ export default  function Profile_Fake(){
 
     return(
         <div>
-            <h1 className='text-3xl font-bold mb-6'>Profile Fake</h1>
+            <h1 className='text-3xl font-bold mb-6'>You not to Verification</h1>
 
 
 
