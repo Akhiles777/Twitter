@@ -4,27 +4,32 @@ import {useParams} from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import {PAGES} from "@/config/pages.config";
+import SubScribe from "@/app/(public)/u/[username]/SubScribe";
 
 interface Post {
     id: number;
     author: string;
     text: string;
+    image?: string;
 }
 
 
 
 
 
-export default function Post({author,text}:Post){
+export default function Post({author,text,image,id}:Post){
 
     const params = useParams<{username:string}>();
     return (
         <div>
 
+            <img className='w-30 h-30 rounded-4xl mt-8 ml-40 mb-8' src={image}/>
+
+
+
+            <SubScribe userId={id}/>
 
             <div className='border border-white/10 rounded-xl p-4 bg-black text-white shadow-md'>
-
-
 
 
                 <div className='flex items-center gap-3 mb-2'>
@@ -34,11 +39,12 @@ export default function Post({author,text}:Post){
 
 
 
-<h2>@{params.username}</h2>
+
+                    <h2>@{params.username}</h2>
                 </div>
 
                 <p className='text-white/90'>{text}</p>
             </div>
-</div>
+        </div>
     )
 }

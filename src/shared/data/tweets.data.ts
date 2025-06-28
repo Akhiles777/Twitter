@@ -1,69 +1,73 @@
-import type {ITweet} from "@/shared/types/tweet.interface";
+import type { ITweet } from "@/shared/types/tweet.interface";
 
 export const TWEETS: ITweet[] = [
     {
-        author: 'redgrouop',
-        text: 'Theory is nice, but practice is what actually builds your skills.Code more, read less',
-        id: 1
+        author: 'redgroup',
+        text: 'Theory is great, but shipping code is what makes you a real developer. Build, break, learn.',
+        id: 1,
+        image: '/profile-pics.jpeg'
     },
-
-
     {
         author: 'csswithc',
-        text: 'Gasan tigr',
-        id: 2
+        text: 'Centered a div in one try. Feeling unstoppable. 🐅',
+        id: 2,
+        image: '/profile-pics.jpeg'
 
     },
-
-
     {
         author: 'jsx_queen',
-        text: '95% of front-end bugs',
-        id: 3
+        text: '95% of front-end bugs live somewhere between your brain and your state management.',
+        id: 3,
+        image: '/profile-pics.jpeg'
+
     },
     {
         author: 'react_shack',
-        text: 'Theory is lokh',
-        id: 4
-    },
+        text: 'Theory without action is just imagination. Write code, not dreams.',
+        id: 4,
+        image: '/profile-pics.jpeg'
 
+    },
     {
         author: 'layout_lord',
-        text: 'dlkgmdklgnd',
-        id: 5
-    },
+        text: 'Spent 2 hours adjusting one padding. Worth it.',
+        id: 5,
+        image: '/profile-pics.jpeg'
 
+    },
     {
         author: 'vite_ninjs',
-        text: 'dgdgdfg',
-        id: 6
-    },
+        text: 'Cold start? Not with Vite. 🥷⚡',
+        id: 6,
+        image: '/profile-pics.jpeg'
 
+    },
     {
         author: 'state_of_hooks',
-        text: 'ojdjdiofjgjdgh',
-        id: 7
+        text: 'useEffect is easy... until it isn’t.',
+        id: 7,
+        image: '/profile-pics.jpeg'
+
     },
-
-
     {
         author: 'btn_dev',
-        text: 'dfhdhd',
-        id: 8
+        text: 'Styled a button for 30 minutes. Look at it. Appreciate it.',
+        id: 8,
+        image: '/profile-pics.jpeg'
+
     },
-
-
     {
         author: 'darkmode_dude',
-        text: 'gfdhfdh',
-        id: 9
+        text: 'Dark mode isn’t a feature, it’s a vibe. 🌑',
+        id: 9,
+        image: '/profile-pics.jpeg'
+
     },
-
-
     {
         author: 'next_level',
-        text: "dhdhiofdjhoifdjho",
-        id: 10
-    },
+        text: 'Next.js made me believe in SSR again. And yes, it’s fast.',
+        id: 10,
+        image: '/profile-pics.jpeg'
 
+    },
 ]

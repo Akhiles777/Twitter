@@ -3,6 +3,7 @@
 import { useParams } from "next/navigation";
 import Post from "@/app/(public)/u/[username]/Post";
 import { TWEETS } from "@/shared/data/tweets.data";
+import MenuPost from "@/app/(public)/MenuPost/page";
 
 export default function Profile() {
     const params = useParams<{ username: string }>();
@@ -13,24 +14,27 @@ export default function Profile() {
 
 
     return (
-        <div className="ml-110 mt-10 w-170">
-            <h1 className=" ml-32 text-4xl">Profile @{params.username}</h1>
+        <div className="pl-10 ml-110 mt-10 w-146">
+            <h2 className="ml-32 text-3xl">Profile @{params.username}</h2>
 
-            <h2 className="mt-20  ml-35 text-3xl mb-15 ">Post in @{params.username}</h2>
 
             {userTweets.length > 0 ? (
                 userTweets.map((tweet) => (
                     <Post
                         id={tweet.id}
+                        image={tweet.image}
                         key={tweet.text} // лучше id, если есть
                         author={tweet.author}
                         text={tweet.text}
                     />
                 ))
-            ) : (
 
+            ) : (
                 <p className="ml-50 text-gray-500">Пока нет постов</p>
             )}
+
+
+            <MenuPost/>
         </div>
     );
 }
