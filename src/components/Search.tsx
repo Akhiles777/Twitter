@@ -16,7 +16,7 @@ export default function Search({
                 type='search'
                 value={value}
                 placeholder='Search 🔍'
-                className=' w-60 pl-4 flex justify-between ml-20 focus:outline-none border rounded-xl px-2 py-1'
+                className='sm:w-35 md:w-50 lg:w-51 xl:w-50 2xl:w-55  pl-4 flex justify-between ml-20 focus:outline-none border rounded-xl px-2 py-1'
             />
         </div>
     )

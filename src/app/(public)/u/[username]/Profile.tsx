@@ -5,7 +5,7 @@ import Post from "@/app/(public)/u/[username]/Post";
 import { TWEETS } from "@/shared/data/tweets.data";
 import MenuPost from "@/app/(public)/MenuPost/page";
 
-export default function Profile() {
+export default function Profile(  ) {
     const params = useParams<{ username: string }>();
 
     const userTweets = TWEETS.filter(
@@ -34,7 +34,9 @@ export default function Profile() {
             )}
 
 
-            <MenuPost/>
+            {userTweets.map(user => (
+                <MenuPost postId={user.id} key={user.id} />
+            ))}
         </div>
     );
 }

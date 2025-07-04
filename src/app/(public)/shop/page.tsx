@@ -11,7 +11,7 @@ export default async function SSRPage(){
 
 
     return (
-        <div className='pl-80 grid grid-cols-2 '>
+        <div className='sm:pl-8  pl-50 grid grid-cols-2 gap-1 '>
             {products.map(products => <ProductCard key={products.id} {...products} />)}
         </div>
     )

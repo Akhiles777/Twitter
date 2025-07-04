@@ -27,7 +27,7 @@ export function Tweet({tweet}: Props){
 
             <p className='text-white/90'>{tweet.text}</p>
 
-<MenuPost/>
+<MenuPost postId={tweet.id}/>
         </div>
     )
 }

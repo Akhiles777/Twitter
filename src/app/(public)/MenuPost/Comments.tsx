@@ -14,9 +14,6 @@ export default function Comments() {
     const [comments, setComments] = useState('')
     const [posts, setPosts] = useState<Comment[]>([])
     const [nextId, setNextId] = useState(1)
-
-    const [count, setCount] = useState<number>(0)
-
     const openModal = useCallback(() => setIsOpen(true), [])
     const closeModal = useCallback(() => setIsOpen(false), [])
 
@@ -29,6 +26,14 @@ export default function Comments() {
         ])
         setComments('')
         setNextId(prev => prev + 1)
+
+        function Comment(){
+            setTimeout(()=>{
+                setIsOpen(false)
+            },600)
+        }
+
+        Comment()
     }
 
 

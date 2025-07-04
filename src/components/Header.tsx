@@ -8,6 +8,7 @@ import Link from "next/link";
 
 import {Menu} from "@/components/Menu";
 import {TWEETS} from "@/shared/data/tweets.data";
+import Get from "@/app/(public)/Verification/Get";
 
 export function Header() {
 
@@ -19,6 +20,8 @@ export function Header() {
     <header className='border-b border-white/10 px-6 py-4 flex items-center justify-between bg-black'>
 
         <Link href={'/'} className='flex items-center gap-3'>
+
+
 
             <Image src={'/x-logo.svg'} alt={'X-l'} width={28} priority height={28}/>
 

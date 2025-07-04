@@ -29,7 +29,7 @@ export default function SubScribe({ userId }: SubScribeProps) {
         <div className='ml-42 mb-10'>
             <button
                 onClick={toggleSub}
-                className={`rounded-xl w-25 ${subs ? 'bg-blue-500' : 'bg-gray-500'}`}
+                className={`cursor-pointer rounded-xl w-25 ${subs ? 'bg-blue-500' : 'bg-gray-500'}`}
             >
                 {subs ? 'subscribe' : 'unsubscribe'}
             </button>
