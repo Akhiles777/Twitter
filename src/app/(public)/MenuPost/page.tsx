@@ -3,7 +3,7 @@ import Comments from "@/app/(public)/MenuPost/Comments";
 
 export default function MenuPost({ postId }: { postId: number }) {
     return (
-        <div className='pl-1 border-t-1 flex justify-between'>
+        <div className='pl-1 w-125 border-t-1 flex justify-between'>
             <LikePost postId={postId} />
             <Comments />
         </div>

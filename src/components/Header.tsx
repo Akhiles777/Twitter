@@ -5,11 +5,10 @@ import Search from "./Search";
 import Link from "next/link";
 import {Menu} from "@/components/Menu";
 import {TWEETS} from "@/shared/data/tweets.data";
-import { UserInfo } from "./auth/UserInfo";
-import { useAuth } from "@/contexts/AuthContext";
+
 
 export function Header() {
-    const { user } = useAuth();
+
 
     return (
         <div>
@@ -20,17 +19,10 @@ export function Header() {
 
                 <div className="flex items-center gap-4">
                     <Menu/>
-                    {user ? (
-                        <UserInfo />
-                    ) : (
-                        <Link 
-                            href="/auth"
-                            className="px-4 py-2 bg-white text-black rounded-lg hover:bg-gray-200 transition-colors font-medium"
-                        >
-                            Войти
-                        </Link>
-                    )}
+
+
                 </div>
+
             </header>
         </div>
     )

@@ -1,7 +1,7 @@
 export const PAGES = {
     HOME: '/',
     EXPLORE: '/explore',
-    PROFILE_FAKE: '/profile_fake',
+    PROFILE_FAKE: '/profile',
     SHOP: '/shop',
     SSG: '/shop/ssg',
     ISR: '/shop/isr',

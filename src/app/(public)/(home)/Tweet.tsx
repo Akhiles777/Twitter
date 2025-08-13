@@ -6,6 +6,8 @@ import {PAGES} from "@/config/pages.config";
 
 import MenuPost from "@/app/(public)/MenuPost/page";
 
+
+
 interface Props{
     tweet: ITweet
 }
@@ -27,7 +29,15 @@ export function Tweet({tweet}: Props){
 
             <p className='text-white/90'>{tweet.text}</p>
 
-<MenuPost postId={tweet.id}/>
+
+
+
+<div className='w-full border border-white/10'>
+    <MenuPost postId={tweet.id}/>
+</div>
+
+
+
         </div>
     )
 }

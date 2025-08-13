@@ -2,8 +2,6 @@
 import {useParams} from "next/navigation";
 
 import Image from "next/image";
-import Link from "next/link";
-import {PAGES} from "@/config/pages.config";
 import SubScribe from "@/app/(public)/u/[username]/SubScribe";
 
 interface Post {
@@ -20,6 +18,7 @@ interface Post {
 export default function Post({author,text,image,id}:Post){
 
     const params = useParams<{username:string}>();
+
     return (
         <div>
 
@@ -29,14 +28,17 @@ export default function Post({author,text,image,id}:Post){
 
             <SubScribe userId={id}/>
 
+            <div className='flex justify-beetwen mb-5'>
+                <h2 className='text-xl'>Посты:</h2>
+                <p className='mt-0.9 text-xl ml-5'>@{params.username}</p>
+            </div>
+
             <div className='border border-white/10 rounded-xl p-4 bg-black text-white shadow-md'>
 
 
                 <div className='flex items-center gap-3 mb-2'>
 
                     <Image src={'/x-logo.svg'} alt={'X logo'} width={24} height={24}/>
-
-
 
 
 

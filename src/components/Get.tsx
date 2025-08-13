@@ -1,4 +1,3 @@
-import type { IProps } from "@/app/(public)/Verification/Form";
 
 export default function GetPage({ form }: any) {
 

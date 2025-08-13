@@ -23,9 +23,9 @@ export default function LikePost({ postId }: { postId: number }) {
     return (
         <button onClick={toggleLike}>
             {isLiked ? (
-                <Heart className="w-5 h-5 fill-red-500 text-red-500" />
+                <Heart className="ml-1 w-6 h-6 fill-red-500 text-red-500" />
             ) : (
-                <Heart className="w-5 h-5 text-gray-500" />
+                <Heart className="ml-1  w-5 h-5 text-gray-500" />
             )}
         </button>
     )

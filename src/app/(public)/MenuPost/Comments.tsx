@@ -42,7 +42,7 @@ export default function Comments() {
     return (
         <div className='mt-1 mr-4'>
             <button onClick={openModal}>
-                <MessageCircle className="w-5 h-5 text-gray-500 mr-113 transition" />
+                <MessageCircle className= "w-5 h-5 text-gray-500 mr-105 transition" />
 
             </button>
 
