@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth, db } from '@/shared/firebase/firebase' // db = getFirestore(app)
 import { doc, setDoc } from 'firebase/firestore'
-
+import Link from 'next/link'
 
 export default function SignUp() {
     const [name, setName] = useState('')
@@ -41,6 +41,7 @@ export default function SignUp() {
                 name: name,
                 email: email,
                 createdAt: new Date(),
+                Subscribed: []
             })
 
             console.log('User registered:', user)
@@ -91,11 +92,16 @@ export default function SignUp() {
                     onChange={(e) => setCopyPassword(e.target.value)}
                     type="password"
                 />
-                <button className='mr-35' type="submit">Sign Up</button>
 
-                {error && <p style={{ color: 'red' }}>{error}</p>}
+                <div className='flex justify-center '>
+                    <button className='mr-35' type="submit">Зарегистрироваться</button>
+
+                    <Link href="/firebase-auth/Sign-In">Есть аккаунт</Link>
+
+                </div>
+
+                {error && <p style={{color: 'red'}}>{error}</p>}
             </form>
-
 
 
         </div>

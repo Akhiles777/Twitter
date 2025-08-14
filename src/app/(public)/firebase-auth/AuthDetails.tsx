@@ -1,42 +1,47 @@
-'use client'
+import { useEffect, useState } from 'react'
+import { auth } from '@/shared/firebase/firebase'
 
-import {useEffect, useState} from 'react'
-import {auth} from '@/shared/firebase/firebase'
+import { onAuthStateChanged, signOut } from 'firebase/auth'
 
-import {onAuthStateChanged,signOut} from 'firebase/auth'
-
-export default function AuthDetails(){
-
-    const [authUSer,SetAuthUser]= useState(null)
+export default function AuthDetails() {
+    const [authUser, setAuthUser] = useState(null)
 
     useEffect(() => {
-        const listen = onAuthStateChanged(auth, (user:any) => {
-
-            if(user){
-                SetAuthUser(user)
-            }else {
-                SetAuthUser(null)
+        const listen = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setAuthUser(user)
+            } else {
+                setAuthUser(null)
             }
         })
+
+        // Корректное возвращение функции для отписки
         return () => {
             listen()
         }
-    }, []);
+    }, []) // Обрати внимание на пустой массив зависимостей
 
-    
-    
     function userSignOut() {
         signOut(auth)
-            .then(()=>{
+            .then(() => {
                 console.log('User signed out')
             })
+            .catch((error) => {
+                console.error('Error signing out: ', error)
+            })
     }
-    
-    return(
+
+    return (
         <div>
-            {authUSer ? (
-                <div><p><button onClick={userSignOut}>Sign Out</button></p></div>
-            ): <p>Signed Out</p>}
+            {authUser ? (
+                <div>
+                    <p>
+                        <button onClick={userSignOut}>Sign Out</button>
+                    </p>
+                </div>
+            ) : (
+                <p>Signed Out</p>
+            )}
         </div>
     )
 }
