@@ -22,7 +22,7 @@ export default function Post({author,text,image,id}:Post){
     return (
         <div>
 
-            <img className='w-30 h-30 rounded-4xl mt-8 ml-40 mb-8' src={image}/>
+
 
 
 
@@ -30,7 +30,7 @@ export default function Post({author,text,image,id}:Post){
 
             <div className='flex justify-beetwen mb-5'>
                 <h2 className='text-xl'>Посты:</h2>
-                <p className='mt-0.9 text-xl ml-5'>@{params.username}</p>
+                <p className='mt-0.9 text-xl ml-5 mb-5'>@{params.username}</p>
             </div>
 
             <div className='border border-white/10 rounded-xl p-4 bg-black text-white shadow-md'>

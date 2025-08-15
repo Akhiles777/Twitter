@@ -12,9 +12,9 @@ export default function Modal({
             <div className='bg-gray-800 rounded-xl shadow-lg w-full h-70 max-w-md'>
                 {children}
             </div>
-{/*
-            <div className='absolute inset-0' onClick={onClose} />
-*/}
+
+
+
         </div>
     )
 }

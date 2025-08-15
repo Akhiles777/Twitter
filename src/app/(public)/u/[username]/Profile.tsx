@@ -34,7 +34,6 @@ export default function Profile() {
                     <Post
                         key={tweet.id}
                         id={tweet.id}
-                        image={tweet.image}
                         author={tweet.name}
                         text={tweet.post}
                     />

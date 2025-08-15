@@ -1,14 +1,20 @@
 'use client'
 
 import { db, auth } from '@/shared/firebase/firebase'
-import { doc, getDoc } from 'firebase/firestore'
-import { useEffect, useState } from 'react'
+import { doc, getDoc, collection, addDoc, serverTimestamp } from 'firebase/firestore'
+import { useEffect, useState, useCallback } from 'react'
 import { onAuthStateChanged, signOut } from 'firebase/auth'
 import Link from 'next/link'
+import Modal from '@/components/ui/Modal'
 
 export default function ProfilePage() {
     const [profile, setProfile] = useState<any | null>(null)
     const [loading, setLoading] = useState(true)
+    const [isOpen, setIsOpen] = useState(false)
+    const [post, setPost] = useState<string>('')
+
+    const openModal = useCallback(() => setIsOpen(true), [])
+    const closeModal = useCallback(() => setIsOpen(false), [])
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -28,68 +34,131 @@ export default function ProfilePage() {
         signOut(auth)
     }
 
+    const handlePublishPost = async () => {
+        if (!post.trim() || !profile) return
+
+        await addDoc(collection(db, 'Post'), {
+            name: profile.name,
+            content: post,
+            userId: profile.id,
+            post: post,
+            createdAt: serverTimestamp(),
+        })
+
+        setPost('')
+        setIsOpen(false)
+    }
+
     return (
-        <div className="flex justify-center items-center min-h-screen bg-black p-4">
-            <div className="w-full max-w-lg bg-gray-900 rounded-xl shadow-lg p-6 space-y-5 border border-gray-800">
+        <div className="min-h-screen flex flex-col items-center justify-start bg-black p-4 text-white">
+            <div className="w-full max-w-2xl mt-12 mb-8 bg-zinc-900 rounded-3xl shadow-2xl p-8 space-y-6 border border-zinc-700">
+                {!loading && (
+                    <div>
+                        {!profile ? (
+                            <div className="text-center space-y-6">
+                                <p className="text-zinc-300 text-xl font-medium">
+                                    Для доступа к профилю необходимо войти или зарегистрироваться.
+                                </p>
+                                <Link href="/firebase-auth/Sign-Up">
+                                    <button className="w-full py-4 px-8 rounded-full bg-gradient-to-r from-blue-700 to-purple-700 hover:from-blue-800 hover:to-purple-800 text-white font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-xl">
+                                        Зарегистрироваться
+                                    </button>
+                                </Link>
+                            </div>
+                        ) : (
+                            <div className="space-y-6">
+                                <div className="border-b border-zinc-700 pb-6 mb-2">
+                                    <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+                                        @{profile.name}
+                                    </h1>
+                                    <p className="text-zinc-400 text-lg mt-2">
+                                        Email:{' '}
+                                        <span className="font-medium text-zinc-200">{profile.email}</span>
+                                    </p>
+                                </div>
 
-                {/* Загрузка */}
-                {loading && (
-                    <div className="flex-col gap-4 w-full flex items-center justify-center">
-                        <div
-                            className="w-28 h-28 border-8 text-blue-400 text-4xl animate-spin border-gray-300 flex items-center justify-center border-t-blue-400 rounded-full">
-                            <svg viewBox="0 0 24 24" fill="currentColor" height="1em" width="1em"
-                                 className="animate-ping">
-                                <path
-                                    d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.337 6.182 14.976 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.337 13.382 8.976 12 6.001 12z"/>
+                                <div className="space-y-4">
+                                    <h2 className="text-2xl font-bold text-zinc-200">Подписки:</h2>
+                                    {profile.Subscribe && profile.Subscribe.length > 0 ? (
+                                        <ul className="space-y-3 text-zinc-300 pl-4">
+                                            {profile.Subscribe.map((item: string, i: number) => (
+                                                <li key={i} className="flex items-center space-x-3">
+                          <span className="text-blue-400 text-xl">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-5 w-5"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                            >
+                              <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                             </svg>
-                        </div>
-                    </div>
-                )}
+                          </span>
+                                                    <span className="text-lg">{item}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                        <p className="text-zinc-500 italic text-lg">
+                                            У вас ещё нет подписок.
+                                        </p>
+                                    )}
+                                </div>
 
-                {/* Если профиль не найден (пользователь не вошел) */}
-                {!loading && !profile && (
-                    <div className="text-center">
-                        <p className="text-gray-300 mb-4">
-                            Для доступа к профилю необходимо войти.
-                        </p>
-                        <Link href="/firebase-auth/Sign-Up"
-                              className="text-blue-400 hover:text-blue-300 transition-colors duration-200">
-                            <button
-                                className="w-full py-2 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium">
-                                Зарегистрируйтесь или войдите
-                            </button>
-                        </Link>
-                    </div>
-                )}
-
-                {/* Отображение профиля */}
-                {!loading && profile && (
-                    <div className="space-y-4">
-                        <h1 className="text-2xl font-bold text-white">Профиль @{profile.name}</h1>
-                        <p className="text-gray-400">Email: {profile.email}</p>
-
-                        <div>
-                            <h2 className="text-lg font-semibold text-white">Подписки:</h2>
-                            {profile.Subscribe && profile.Subscribe.length > 0 ? (
-                                <ul className="list-disc list-inside text-gray-300">
-                                    {profile.Subscribe.map((item: string, i: number) => (
-                                        <li key={i} className="py-1">{item}</li>
-                                    ))}
-                                </ul>
-                            ) : (
-                                <p className="text-gray-500">Нет подписок</p>
-                            )}
-                        </div>
-
-                        <button
-                            onClick={handleSignOut}
-                            className="w-full py-2 px-4 rounded-xl bg-gray-700 hover:bg-gray-600 text-white font-medium transition-colors duration-200 mt-4"
-                        >
-                            Выйти
-                        </button>
+                                <button
+                                    onClick={handleSignOut}
+                                    className="w-full py-4 px-8 rounded-full bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-md mt-6"
+                                >
+                                    Выйти
+                                </button>
+                            </div>
+                        )}
                     </div>
                 )}
             </div>
+
+            {!loading && profile && (
+                <div className="w-full max-w-2xl my-8 p-4">
+                    <div className="flex justify-between items-center mb-6">
+                        <h2 className="text-3xl font-extrabold text-white">Мои посты</h2>
+                        <button
+                            onClick={openModal}
+                            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg"
+                        >
+                            Добавить пост
+                        </button>
+                    </div>
+
+                    {isOpen && (
+                        <Modal onClose={closeModal}>
+                            <input
+                                type="text"
+                                value={post}
+                                onChange={(e) => setPost(e.target.value)}
+                                placeholder="Введите текст поста..."
+                                className="w-full p-2 rounded-lg border border-zinc-700 bg-zinc-800 text-white mb-4"
+                            />
+                            <button
+                                onClick={handlePublishPost}
+                                className="w-full py-2 rounded-lg bg-gradient-to-r from-blue-700 to-purple-700 hover:from-blue-800 hover:to-purple-800 text-white font-bold transition"
+                            >
+                                Опубликовать
+                            </button>
+                        </Modal>
+                    )}
+
+                    {/* Пример поста */}
+                    <div className="space-y-6 mt-6">
+                        <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-700 shadow-md">
+                            <h3 className="text-xl font-bold text-white mb-2">
+                                Заголовок первого поста
+                            </h3>
+                            <p className="text-zinc-400">
+                                Здесь будет отображаться контент, который вы добавили.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }
